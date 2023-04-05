@@ -39,5 +39,5 @@ func main() {
 
 	router.Routes(app)
 
-	log.Fatal(app.Listen(":3388"))
+	log.Fatal(app.Listen(":3000"))
 }

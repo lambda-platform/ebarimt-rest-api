@@ -8,3 +8,5 @@ go get github.com/lambda-platform/ebarimt
 
 swag init --parseDependency -o docs/mn
 swag init --parseDependency -o docs/en
+
+### [Main Package](https://github.com/lambda-platform/ebarimt)

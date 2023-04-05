@@ -1,0 +1,295 @@
+basePath: /
+definitions:
+  posapi.BillInput:
+    properties:
+      date:
+        type: string
+      returnBillId:
+        type: string
+    type: object
+  posapi.BillOutput:
+    properties:
+      errorCode:
+        type: integer
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  posapi.CheckOutput:
+    properties:
+      config:
+        properties:
+          message:
+            type: string
+          success:
+            type: boolean
+        type: object
+      database:
+        properties:
+          message:
+            type: string
+          success:
+            type: boolean
+        type: object
+      network:
+        properties:
+          message:
+            type: string
+          success:
+            type: boolean
+        type: object
+      success:
+        type: boolean
+    type: object
+  posapi.DataOutput:
+    properties:
+      errorCode:
+        type: integer
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  posapi.InformationOutput:
+    properties:
+      branchNo:
+        type: string
+      dbDirPath:
+        type: string
+      extraInfo:
+        properties:
+          countBill:
+            type: string
+          countLottery:
+            type: integer
+          lastSentDate:
+            type: string
+          posVersion:
+            type: string
+        type: object
+      posId:
+        type: string
+      registerNo:
+        type: string
+    type: object
+  posapi.PutInput:
+    properties:
+      billId:
+        type: string
+      billType:
+        type: string
+      date:
+        type: string
+      internalCode:
+        type: string
+      lottery:
+        type: string
+      lotteryWarningMsg:
+        type: string
+      macAddress:
+        type: string
+      qrData:
+        type: string
+      registerNo:
+        type: string
+      success:
+        type: boolean
+    type: object
+  posapi.PutOutput:
+    properties:
+      amount:
+        type: string
+      bankTransactions:
+        items:
+          $ref: '#/definitions/posapi.bankTransactions'
+        type: array
+      billIdSuffix:
+        type: string
+      billType:
+        type: string
+      branchNo:
+        type: string
+      cashAmount:
+        type: string
+      cityTax:
+        type: string
+      customerNo:
+        type: string
+      districtCode:
+        type: string
+      dosNo:
+        type: string
+      invoiceId:
+        type: string
+      nonCashAmount:
+        type: string
+      reportMonth:
+        type: string
+      returnBillId:
+        type: string
+      stocks:
+        items:
+          $ref: '#/definitions/posapi.Stocks'
+        type: array
+      taxType:
+        type: string
+      vat:
+        type: string
+    type: object
+  posapi.Stocks:
+    properties:
+      barCode:
+        type: string
+      cityTax:
+        type: string
+      code:
+        type: string
+      measureUnit:
+        type: string
+      name:
+        type: string
+      qty:
+        type: string
+      totalAmount:
+        type: string
+      unitPrice:
+        type: string
+      vat:
+        type: string
+    type: object
+  posapi.bankTransactions:
+    properties:
+      amount:
+        type: string
+      approvalCode:
+        type: string
+      bankId:
+        type: string
+      rrn:
+        type: string
+      terminalId:
+        type: string
+    type: object
+info:
+  contact:
+    email: munkaltai@gmail.com
+    name: Munkh-Altai Chuluunbaatar
+  description: Энэ жинээ нь Go хэл дээр Fiber framework-ийг ашиглаж EBarimt PosAPI-ийн
+    REST API-г хурдан ба хэмнэлттэй бүтээсэн жишээ.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: EBarimt PosAPI REST API Go ба Fiber ашигласан
+  version: "1.0"
+paths:
+  /call:
+    get:
+      description: Тодорхой нэртэй болон параметртэй функцыг дуудах.
+      parameters:
+      - description: Name of the function to call
+        in: query
+        name: functionName
+        required: true
+        type: string
+      - description: Parameters to pass to the function
+        in: query
+        name: params
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Тодорхой функцыг дуудах
+      tags:
+      - ebarimt
+  /check:
+    get:
+      description: API-ийн холболтыг шалгах мөн тохиргооны мэдээлл, сүлжээний статусыг
+        аваh, өгөгдөлийн сантай харьцахад саад буй эсэхийг шалгаж болно
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/posapi.CheckOutput'
+      summary: API-ийн холболтыг шалгах ба статусыг авах
+      tags:
+      - ebarimt
+  /info:
+    get:
+      description: API-ийн талаарх мэдээллийг, жишээ нь хувилбар ба нэрээ авах.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/posapi.InformationOutput'
+      summary: API-ийн мэдээллийг авах
+      tags:
+      - ebarimt
+  /put:
+    post:
+      consumes:
+      - application/json
+      description: Өгөгдсөн мэдээллийг ашиглан системд нэхэмжлэхийг нэмэх.
+      parameters:
+      - description: Bill data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/posapi.PutInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/posapi.PutOutput'
+      summary: Системд нэхэмжлэхийг оруулах
+      tags:
+      - ebarimt
+  /return:
+    post:
+      consumes:
+      - application/json
+      description: Өгөгдсөн мэдээллийг ашиглан нэхэмжлэхийг буцаах.
+      parameters:
+      - description: Return bill data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/posapi.BillInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/posapi.BillOutput'
+      summary: Нэхэмжлэхийг буцаах
+      tags:
+      - ebarimt
+  /send:
+    get:
+      description: Send data via the API.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/posapi.DataOutput'
+      summary: Transmit data
+      tags:
+      - ebarimt
+swagger: "2.0"

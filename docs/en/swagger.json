@@ -1,0 +1,449 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a REST API implementation for EBarimt PosAPI, built using the Fiber framework in Go, showcasing the creation of a fast and efficient RESTful API.",
+        "title": "EBarimt PosAPI REST API using Go and Fiber",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Munkh-Altai Chuluunbaatar",
+            "email": "munkaltai@gmail.com"
+        },
+        "license": {
+            "name": "MIT License",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/call": {
+            "get": {
+                "description": "Call a function with the specified name and parameters.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ebarimt"
+                ],
+                "summary": "Invoke a specified function",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Name of the function to call",
+                        "name": "functionName",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Parameters to pass to the function",
+                        "name": "params",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/check": {
+            "get": {
+                "description": "Check the API connection and retrieve the status of the database, configuration, and network.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ebarimt"
+                ],
+                "summary": "Check API connectivity and status",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/posapi.CheckOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/info": {
+            "get": {
+                "description": "Get information about the API, such as its version and name.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ebarimt"
+                ],
+                "summary": "Retrieve API information",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/posapi.InformationOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/put": {
+            "post": {
+                "description": "Add a bill to the system with the provided data.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ebarimt"
+                ],
+                "summary": "Submit a bill to the system",
+                "parameters": [
+                    {
+                        "description": "Bill data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/posapi.PutInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/posapi.PutOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/return": {
+            "post": {
+                "description": "Return a bill with the provided data.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ebarimt"
+                ],
+                "summary": "Process a bill return",
+                "parameters": [
+                    {
+                        "description": "Return bill data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/posapi.BillInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/posapi.BillOutput"
+                        }
+                    }
+                }
+            }
+        },
+        "/send": {
+            "get": {
+                "description": "Send data via the API.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ebarimt"
+                ],
+                "summary": "Transmit data",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/posapi.DataOutput"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "posapi.BillInput": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "returnBillId": {
+                    "type": "string"
+                }
+            }
+        },
+        "posapi.BillOutput": {
+            "type": "object",
+            "properties": {
+                "errorCode": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "posapi.CheckOutput": {
+            "type": "object",
+            "properties": {
+                "config": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                            "type": "string"
+                        },
+                        "success": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "database": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                            "type": "string"
+                        },
+                        "success": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "message": {
+                            "type": "string"
+                        },
+                        "success": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "posapi.DataOutput": {
+            "type": "object",
+            "properties": {
+                "errorCode": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "posapi.InformationOutput": {
+            "type": "object",
+            "properties": {
+                "branchNo": {
+                    "type": "string"
+                },
+                "dbDirPath": {
+                    "type": "string"
+                },
+                "extraInfo": {
+                    "type": "object",
+                    "properties": {
+                        "countBill": {
+                            "type": "string"
+                        },
+                        "countLottery": {
+                            "type": "integer"
+                        },
+                        "lastSentDate": {
+                            "type": "string"
+                        },
+                        "posVersion": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "posId": {
+                    "type": "string"
+                },
+                "registerNo": {
+                    "type": "string"
+                }
+            }
+        },
+        "posapi.PutInput": {
+            "type": "object",
+            "properties": {
+                "billId": {
+                    "type": "string"
+                },
+                "billType": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "internalCode": {
+                    "type": "string"
+                },
+                "lottery": {
+                    "type": "string"
+                },
+                "lotteryWarningMsg": {
+                    "type": "string"
+                },
+                "macAddress": {
+                    "type": "string"
+                },
+                "qrData": {
+                    "type": "string"
+                },
+                "registerNo": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "posapi.PutOutput": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "bankTransactions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/posapi.bankTransactions"
+                    }
+                },
+                "billIdSuffix": {
+                    "type": "string"
+                },
+                "billType": {
+                    "type": "string"
+                },
+                "branchNo": {
+                    "type": "string"
+                },
+                "cashAmount": {
+                    "type": "string"
+                },
+                "cityTax": {
+                    "type": "string"
+                },
+                "customerNo": {
+                    "type": "string"
+                },
+                "districtCode": {
+                    "type": "string"
+                },
+                "dosNo": {
+                    "type": "string"
+                },
+                "invoiceId": {
+                    "type": "string"
+                },
+                "nonCashAmount": {
+                    "type": "string"
+                },
+                "reportMonth": {
+                    "type": "string"
+                },
+                "returnBillId": {
+                    "type": "string"
+                },
+                "stocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/posapi.Stocks"
+                    }
+                },
+                "taxType": {
+                    "type": "string"
+                },
+                "vat": {
+                    "type": "string"
+                }
+            }
+        },
+        "posapi.Stocks": {
+            "type": "object",
+            "properties": {
+                "barCode": {
+                    "type": "string"
+                },
+                "cityTax": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "measureUnit": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "qty": {
+                    "type": "string"
+                },
+                "totalAmount": {
+                    "type": "string"
+                },
+                "unitPrice": {
+                    "type": "string"
+                },
+                "vat": {
+                    "type": "string"
+                }
+            }
+        },
+        "posapi.bankTransactions": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "approvalCode": {
+                    "type": "string"
+                },
+                "bankId": {
+                    "type": "string"
+                },
+                "rrn": {
+                    "type": "string"
+                },
+                "terminalId": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

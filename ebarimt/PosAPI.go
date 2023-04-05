@@ -7,7 +7,7 @@ import (
 var PosAPI *posapi.PosAPI
 
 func init() {
-	api, err := posapi.NewPosAPI("./libPosAPI.so")
+	api, err := posapi.NewPosAPI("/home/ebarimtuser/app/PosAPI.go")
 	if err != nil {
 		panic(err)
 	}

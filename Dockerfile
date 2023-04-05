@@ -42,11 +42,11 @@ RUN ln -s /usr/lib/libQt5Script.so.5.4.1 /usr/lib/libQt5Script.so.5.4 \
 
 
 # Add user
-RUN useradd -ms /bin/bash myuser
-USER myuser
+RUN useradd -ms /bin/bash ebarimtuser
+USER ebarimtuser
 
 # Set working directory
-WORKDIR /home/myuser/app
+WORKDIR /home/ebarimtuser/app
 
 # Copy the go.mod and go.sum files into the container at /app
 COPY go.mod go.sum ./
@@ -55,7 +55,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the rest of the project files into the container at /app
-COPY . .
+COPY --chown=ebarimtuser:ebarimtuser . .
 
 # Build the project
 RUN go build -o main .

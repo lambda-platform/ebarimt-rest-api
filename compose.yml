@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  ebarimt:
+    image: ebarimt
+    restart: always
+    platform: linux/amd64
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./ebarimt_data:/home/myuser/.vatps:rw
+
+# No need for the volumes section when using a bind mount

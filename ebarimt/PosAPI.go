@@ -1,13 +1,11 @@
 package ebarimt
 
-import (
-	"github.com/lambda-platform/ebarimt/posapi"
-)
+import "github.com/lambda-platform/ebarimt/posapi"
 
 var PosAPI *posapi.PosAPI
 
 func init() {
-	api, err := posapi.NewPosAPI("/home/ebarimtuser/app/libPosAPI.so")
+	api, err := posapi.NewPosAPI("/home/khankhulgen/web/ebarimt/rest/6787556.so")
 	if err != nil {
 		panic(err)
 	}

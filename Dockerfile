@@ -1,8 +1,10 @@
-FROM golang:1.19
+FROM golang:latest
 
 RUN apt-get update && \
-    apt-get install -y libsqlite3-dev && \
+    apt-get install -y libsqlite3-dev g++ grep && \
     rm -rf /var/lib/apt/lists/*
+
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 COPY x64/libcrypto.so.1.0.0 /usr/lib
 RUN ln -s /usr/lib/libcrypto.so.1.0.0 /usr/lib/libcrypto.so
@@ -48,14 +50,11 @@ USER ebarimtuser
 # Set working directory
 WORKDIR /home/ebarimtuser/app
 
-# Copy the go.mod and go.sum files into the container at /app
-COPY go.mod go.sum ./
+# Copy the rest of the project files into the container at /app
+COPY --chown=ebarimtuser:ebarimtuser . .
 
 # Download dependencies
 RUN go mod download
-
-# Copy the rest of the project files into the container at /app
-COPY --chown=ebarimtuser:ebarimtuser . .
 
 # Build the project
 RUN go build -o main .

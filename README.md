@@ -15,3 +15,7 @@ swag init --parseDependency -o docs/en
 docker build --platform linux/amd64 --build-arg ARCH=x64 -t ebarimt .
 
 docker run --platform linux/amd64 -p 3000:3000 --name=ebarimt ebarimt
+
+check so
+nm -D /home/ebarimtuser/app/libPosAPI.so | grep getInformation
+nm -D /usr/lib/libPosAPI.so | grep getInformation

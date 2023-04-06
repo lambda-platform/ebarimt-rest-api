@@ -7,7 +7,7 @@ services:
     platform: linux/amd64
     ports:
       - "3000:3000"
-    volumes:
-      - ./ebarimt_data:/home/ebarimtuser/.vatps:rw
+#    volumes:
+#      - ./ebarimt_data:/home/ebarimtuser/.vatps:rw
 
 # No need for the volumes section when using a bind mount

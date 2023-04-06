@@ -1,11 +1,11 @@
 #FROM golang:latest AS builder
 FROM golang:latest
 
-RUN apt-get update && \
-    apt-get install -y libsqlite3-0=3.8.2-1 && \
-    rm -rf /var/lib/apt/lists/*
-
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+COPY libsqlite3/usr/lib/x86_64-linux-gnu/libsqlite3.so.0.8.6 /usr/lib/x86_64-linux-gnu/
+COPY libsqlite3/usr/lib/x86_64-linux-gnu/libsqlite3.so.0 /usr/lib/x86_64-linux-gnu/
+RUN ln -s /usr/lib/x86_64-linux-gnu/libsqlite3.so.0 /usr/lib/x86_64-linux-gnu/libsqlite3.so
 
 COPY x64/libcrypto.so.1.0.0 /usr/lib
 RUN ln -s /usr/lib/libcrypto.so.1.0.0 /usr/lib/libcrypto.so

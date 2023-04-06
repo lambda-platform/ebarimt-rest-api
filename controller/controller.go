@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/lambda-platform/ebarimt-rest-api/ebarimt"
+	"github.com/lambda-platform/ebarimt/posapi"
 )
 
 // @Summary_en        Retrieve API information
@@ -74,9 +75,14 @@ func Call(c *fiber.Ctx) error {
 // @Success           200 {object} posapi.PutOutput
 // @Router            /put [post]
 func Put(c *fiber.Ctx) error {
+	input := posapi.PutInput{}
+	if err := c.BodyParser(&input); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Cannot parse JSON",
+		})
+	}
 
-	data := c.Body()
-	result, err := ebarimt.PosAPI.Put(string(data))
+	result, err := ebarimt.PosAPI.Put(input)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"message": "Failed to call Put function"})
 	}
@@ -96,8 +102,13 @@ func Put(c *fiber.Ctx) error {
 // @Router /return [post]
 func Return(c *fiber.Ctx) error {
 
-	data := c.Body()
-	result, err := ebarimt.PosAPI.ReturnBill(string(data))
+	input := posapi.BillInput{}
+	if err := c.BodyParser(&input); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Cannot parse JSON",
+		})
+	}
+	result, err := ebarimt.PosAPI.ReturnBill(input)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"message": "Failed to call ReturnBill function"})
 	}

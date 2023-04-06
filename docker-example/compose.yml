@@ -10,5 +10,6 @@ services:
     volumes:
       - ./libPosAPI.so:/home/ebarimtuser/app/libPosAPI.so #./libPosAPI.so path your so file
       - ./ebarimt_data:/home/ebarimtuser/.vatps:rw
+    environment:
+      - TZ=Asia/Ulaanbaatar
 
-# No need for the volumes section when using a bind mount

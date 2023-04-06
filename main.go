@@ -7,11 +7,11 @@ import (
 	"log"
 )
 
-// @title_en            EBarimt PosAPI REST API using Go and Fiber
-// @title            EBarimt PosAPI REST API Go ба Fiber ашигласан
+// @title            EBarimt PosAPI REST API using Go and Fiber
+// @title_mn            EBarimt PosAPI REST API Go ба Fiber ашигласан
 // @version             1.0
-// @description_en      This is a REST API implementation for EBarimt PosAPI, built using the Fiber framework in Go, showcasing the creation of a fast and efficient RESTful API.
-// @description      Энэ жинээ нь Go хэл дээр Fiber framework-ийг ашиглаж EBarimt PosAPI-ийн REST API-г хурдан ба хэмнэлттэй бүтээсэн жишээ.
+// @description      This is a REST API implementation for EBarimt PosAPI, built using the Fiber framework in Go, showcasing the creation of a fast and efficient RESTful API.
+// @description_mn      Энэ жинээ нь Go хэл дээр Fiber framework-ийг ашиглаж EBarimt PosAPI-ийн REST API-г хурдан ба хэмнэлттэй бүтээсэн жишээ.
 // @termsOfService      http://swagger.io/terms/
 // @contact.name        Munkh-Altai Chuluunbaatar
 // @contact.email       munkaltai@gmail.com

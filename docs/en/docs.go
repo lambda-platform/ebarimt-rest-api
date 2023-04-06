@@ -190,26 +190,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "posapi.BankTransaction": {
-            "type": "object",
-            "properties": {
-                "amount": {
-                    "type": "string"
-                },
-                "approvalCode": {
-                    "type": "string"
-                },
-                "bankId": {
-                    "type": "string"
-                },
-                "rrn": {
-                    "type": "string"
-                },
-                "terminalId": {
-                    "type": "string"
-                }
-            }
-        },
         "posapi.BillInput": {
             "type": "object",
             "properties": {
@@ -333,68 +313,6 @@ const docTemplate = `{
                 "bankTransactions": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/posapi.BankTransaction"
-                    }
-                },
-                "billIdSuffix": {
-                    "type": "string"
-                },
-                "billType": {
-                    "type": "string"
-                },
-                "branchNo": {
-                    "type": "string"
-                },
-                "cashAmount": {
-                    "type": "string"
-                },
-                "cityTax": {
-                    "type": "string"
-                },
-                "customerNo": {
-                    "type": "string"
-                },
-                "districtCode": {
-                    "type": "string"
-                },
-                "invoiceId": {
-                    "type": "string"
-                },
-                "nonCashAmount": {
-                    "type": "string"
-                },
-                "posNo": {
-                    "type": "string"
-                },
-                "reportMonth": {
-                    "type": "string"
-                },
-                "returnBillId": {
-                    "type": "string"
-                },
-                "stocks": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/posapi.Stock"
-                    }
-                },
-                "taxType": {
-                    "type": "string"
-                },
-                "vat": {
-                    "type": "string"
-                }
-            }
-        },
-        "posapi.PutOutput": {
-            "type": "object",
-            "properties": {
-                "amount": {
-                    "type": "string"
-                },
-                "bankTransactions": {
-                    "type": "array",
-                    "items": {
                         "$ref": "#/definitions/posapi.bankTransactions"
                     }
                 },
@@ -448,35 +366,38 @@ const docTemplate = `{
                 }
             }
         },
-        "posapi.Stock": {
+        "posapi.PutOutput": {
             "type": "object",
             "properties": {
-                "barCode": {
+                "billId": {
                     "type": "string"
                 },
-                "cityTax": {
+                "billType": {
                     "type": "string"
                 },
-                "code": {
+                "date": {
                     "type": "string"
                 },
-                "measureUnit": {
+                "internalCode": {
                     "type": "string"
                 },
-                "name": {
+                "lottery": {
                     "type": "string"
                 },
-                "qty": {
+                "lotteryWarningMsg": {
                     "type": "string"
                 },
-                "totalAmount": {
+                "macAddress": {
                     "type": "string"
                 },
-                "unitPrice": {
+                "qrData": {
                     "type": "string"
                 },
-                "vat": {
+                "registerNo": {
                     "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
                 }
             }
         },

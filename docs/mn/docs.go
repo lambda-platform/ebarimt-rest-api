@@ -136,7 +136,7 @@ const docTemplate = `{
         },
         "/return": {
             "post": {
-                "description": "Өгөгдсөн мэдээллийг ашиглан нэхэмжлэхийг буцаах.",
+                "description": "Return a bill with the provided data.\nӨгөгдсөн мэдээллийг ашиглан нэхэмжлэхийг буцаах.",
                 "consumes": [
                     "application/json"
                 ],
@@ -190,6 +190,26 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "posapi.BankTransaction": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "approvalCode": {
+                    "type": "string"
+                },
+                "bankId": {
+                    "type": "string"
+                },
+                "rrn": {
+                    "type": "string"
+                },
+                "terminalId": {
+                    "type": "string"
+                }
+            }
+        },
         "posapi.BillInput": {
             "type": "object",
             "properties": {
@@ -307,35 +327,62 @@ const docTemplate = `{
         "posapi.PutInput": {
             "type": "object",
             "properties": {
-                "billId": {
+                "amount": {
+                    "type": "string"
+                },
+                "bankTransactions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/posapi.BankTransaction"
+                    }
+                },
+                "billIdSuffix": {
                     "type": "string"
                 },
                 "billType": {
                     "type": "string"
                 },
-                "date": {
+                "branchNo": {
                     "type": "string"
                 },
-                "internalCode": {
+                "cashAmount": {
                     "type": "string"
                 },
-                "lottery": {
+                "cityTax": {
                     "type": "string"
                 },
-                "lotteryWarningMsg": {
+                "customerNo": {
                     "type": "string"
                 },
-                "macAddress": {
+                "districtCode": {
                     "type": "string"
                 },
-                "qrData": {
+                "invoiceId": {
                     "type": "string"
                 },
-                "registerNo": {
+                "nonCashAmount": {
                     "type": "string"
                 },
-                "success": {
-                    "type": "boolean"
+                "posNo": {
+                    "type": "string"
+                },
+                "reportMonth": {
+                    "type": "string"
+                },
+                "returnBillId": {
+                    "type": "string"
+                },
+                "stocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/posapi.Stock"
+                    }
+                },
+                "taxType": {
+                    "type": "string"
+                },
+                "vat": {
+                    "type": "string"
                 }
             }
         },
@@ -394,6 +441,38 @@ const docTemplate = `{
                     }
                 },
                 "taxType": {
+                    "type": "string"
+                },
+                "vat": {
+                    "type": "string"
+                }
+            }
+        },
+        "posapi.Stock": {
+            "type": "object",
+            "properties": {
+                "barCode": {
+                    "type": "string"
+                },
+                "cityTax": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "measureUnit": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "qty": {
+                    "type": "string"
+                },
+                "totalAmount": {
+                    "type": "string"
+                },
+                "unitPrice": {
                     "type": "string"
                 },
                 "vat": {

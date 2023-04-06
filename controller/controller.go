@@ -5,10 +5,10 @@ import (
 	"github.com/lambda-platform/ebarimt-rest-api/ebarimt"
 )
 
-// @Summary        Retrieve API information
-// @Summary_mn        API-ийн мэдээллийг авах
-// @Description    Get information about the API, such as its version and name.
-// @Description_mn    API-ийн талаарх мэдээллийг, жишээ нь хувилбар ба нэрээ авах.
+// @Summary_en        Retrieve API information
+// @Summary        API-ийн мэдээллийг авах
+// @Description_en    Get information about the API, such as its version and name.
+// @Description    API-ийн талаарх мэдээллийг, жишээ нь хувилбар ба нэрээ авах.
 // @Tags              ebarimt
 // @Produce           json
 // @Success           200 {object} posapi.InformationOutput
@@ -23,10 +23,10 @@ func Info(c *fiber.Ctx) error {
 	return c.JSON(info)
 }
 
-// @Summary        Check API connectivity and status
-// @Summary_mn        API-ийн холболтыг шалгах ба статусыг авах
-// @Description    Check the API connection and retrieve the status of the database, configuration, and network.
-// @Description_mn    API-ийн холболтыг шалгах мөн тохиргооны мэдээлл, сүлжээний статусыг аваh, өгөгдөлийн сантай харьцахад саад буй эсэхийг шалгаж болно
+// @Summary_en        Check API connectivity and status
+// @Summary        API-ийн холболтыг шалгах ба статусыг авах
+// @Description_en    Check the API connection and retrieve the status of the database, configuration, and network.
+// @Description    API-ийн холболтыг шалгах мөн тохиргооны мэдээлл, сүлжээний статусыг аваh, өгөгдөлийн сантай харьцахад саад буй эсэхийг шалгаж болно
 // @Tags              ebarimt
 // @Produce           json
 // @Success           200 {object} posapi.CheckOutput
@@ -41,10 +41,10 @@ func Check(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"result": result})
 }
 
-// @Summary        Invoke a specified function
-// @Summary_mn        Тодорхой функцыг дуудах
-// @Description    Call a function with the specified name and parameters.
-// @Description_mn    Тодорхой нэртэй болон параметртэй функцыг дуудах.
+// @Summary_en        Invoke a specified function
+// @Summary        Тодорхой функцыг дуудах
+// @Description_en    Call a function with the specified name and parameters.
+// @Description    Тодорхой нэртэй болон параметртэй функцыг дуудах.
 // @Tags              ebarimt
 // @Produce           json
 // @Param             functionName query string true "Name of the function to call"
@@ -63,10 +63,10 @@ func Call(c *fiber.Ctx) error {
 	return c.JSON(result)
 }
 
-// @Summary        Submit a bill to the system
-// @Summary_mn        Системд нэхэмжлэхийг оруулах
-// @Description    Add a bill to the system with the provided data.
-// @Description_mn    Өгөгдсөн мэдээллийг ашиглан системд нэхэмжлэхийг нэмэх.
+// @Summary_en        Submit a bill to the system
+// @Summary        Системд нэхэмжлэхийг оруулах
+// @Description_en    Add a bill to the system with the provided data.
+// @Description    Өгөгдсөн мэдээллийг ашиглан системд нэхэмжлэхийг нэмэх.
 // @Tags              ebarimt
 // @Accept            json
 // @Produce           json
@@ -84,10 +84,10 @@ func Put(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"result": result})
 }
 
-// @Summary        Process a bill return
-// @Summary_mn        Нэхэмжлэхийг буцаах
+// @Summary_en        Process a bill return
+// @Summary        Нэхэмжлэхийг буцаах
 // @Description Return a bill with the provided data.
-// @Description_mn Өгөгдсөн мэдээллийг ашиглан нэхэмжлэхийг буцаах.
+// @Description Өгөгдсөн мэдээллийг ашиглан нэхэмжлэхийг буцаах.
 // @Tags ebarimt
 // @Accept json
 // @Produce json

@@ -2,7 +2,7 @@
 FROM golang:latest
 
 RUN apt-get update && \
-    apt-get install -y libsqlite3-dev && \
+    apt-get install -y libsqlite3-0=3.8.2-1 && \
     rm -rf /var/lib/apt/lists/*
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
@@ -72,7 +72,7 @@ CMD ["./main"]
 #
 ## Install dependencies
 #RUN apt-get update && \
-# apt-get install -y libsqlite3-dev libglib2.0-0 -y openssl  libssl-dev && \
+# apt-get install -y libsqlite3-0=3.8.2-1 libglib2.0-0 -y openssl  libssl-dev && \
 #    rm -rf /var/lib/apt/lists/*
 #
 #ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH

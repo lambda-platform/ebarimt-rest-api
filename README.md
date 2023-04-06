@@ -16,6 +16,11 @@ swag init --parseDependency -o docs/en
 Docker build image command
 docker build --platform linux/amd64 --build-arg ARCH=x64 -t ebarimt .
 
+docker tag ebarimt:latest munkhaltai/ebarimt:latest
+docker push munkhaltai/ebarimt:latest
+
+// docker usage
+docker pull munkhaltai/ebarimt:latest
 
 check so in ubuntu example
 nm -D /home/ebarimtuser/app/libPosAPI.so | grep getInformation

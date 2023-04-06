@@ -44,15 +44,15 @@
         <h2 class="text-xl font-bold">Docker Image</h2>
         <p class="text-gray-600 mt-2">A Docker image for this package is available on Docker Hub:</p>
         <p class="text-gray-600 mt-2">
-            <a href="https://hub.docker.com/r/lambda-platform/ebarimt-rest-api"
-               class="text-indigo-600 hover:text-indigo-800">lambda-platform/ebarimt-rest-api</a>
+            <a href="https://hub.docker.com/r/munkhaltai/ebarimt"
+               class="text-indigo-600 hover:text-indigo-800">REST API for Ebarimt PosAPI</a>
         </p>
         <p class="text-gray-600 mt-2">
             To pull and run the Docker image, use the following command:
         </p>
         <pre class="text-gray-600 mt-2">
-<code>docker pull lambda-platform/ebarimt-rest-api
-docker run -d -p 8080:8080 --name ebarimt-rest-api lambda-platform/ebarimt-rest-api
+<code>docker pull munkhaltai/ebarimt:latest
+docker run -d -p 3000:3000 --name ebarimt-rest-api munkhaltai/ebarimt
 </code>
 </pre>
         <p class="text-gray-600 mt-2">

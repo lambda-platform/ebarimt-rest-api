@@ -9,13 +9,14 @@ go get github.com/lambda-platform/ebarimt
 swag init --parseDependency -o docs/mn
 swag init --parseDependency -o docs/en
 
-### [Main Package](https://github.com/lambda-platform/ebarimt)
+### [Main Package https://github.com/lambda-platform/ebarimt ](https://github.com/lambda-platform/ebarimt)
 
 
+
+Docker build image command
 docker build --platform linux/amd64 --build-arg ARCH=x64 -t ebarimt .
 
-docker run --platform linux/amd64 -p 3000:3000 --name=ebarimt ebarimt
 
-check so
+check so in ubuntu example
 nm -D /home/ebarimtuser/app/libPosAPI.so | grep getInformation
 nm -D /usr/lib/libPosAPI.so | grep getInformation

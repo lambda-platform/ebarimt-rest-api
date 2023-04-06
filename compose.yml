@@ -8,6 +8,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
+      - ./libPosAPI.so:/home/ebarimtuser/app/libPosAPI.so #./libPosAPI.so path your so file
       - ./ebarimt_data:/home/ebarimtuser/.vatps:rw
 
 # No need for the volumes section when using a bind mount

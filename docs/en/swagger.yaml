@@ -1,5 +1,18 @@
 basePath: /
 definitions:
+  posapi.BankTransaction:
+    properties:
+      amount:
+        type: string
+      approvalCode:
+        type: string
+      bankId:
+        type: string
+      rrn:
+        type: string
+      terminalId:
+        type: string
+    type: object
   posapi.BillInput:
     properties:
       date:
@@ -79,7 +92,7 @@ definitions:
         type: string
       bankTransactions:
         items:
-          $ref: '#/definitions/posapi.bankTransactions'
+          $ref: '#/definitions/posapi.BankTransaction'
         type: array
       billIdSuffix:
         type: string
@@ -95,11 +108,11 @@ definitions:
         type: string
       districtCode:
         type: string
-      dosNo:
-        type: string
       invoiceId:
         type: string
       nonCashAmount:
+        type: string
+      posNo:
         type: string
       reportMonth:
         type: string
@@ -107,7 +120,7 @@ definitions:
         type: string
       stocks:
         items:
-          $ref: '#/definitions/posapi.Stocks'
+          $ref: '#/definitions/posapi.Stock'
         type: array
       taxType:
         type: string
@@ -137,7 +150,7 @@ definitions:
       success:
         type: boolean
     type: object
-  posapi.Stocks:
+  posapi.Stock:
     properties:
       barCode:
         type: string
@@ -156,19 +169,6 @@ definitions:
       unitPrice:
         type: string
       vat:
-        type: string
-    type: object
-  posapi.bankTransactions:
-    properties:
-      amount:
-        type: string
-      approvalCode:
-        type: string
-      bankId:
-        type: string
-      rrn:
-        type: string
-      terminalId:
         type: string
     type: object
 info:

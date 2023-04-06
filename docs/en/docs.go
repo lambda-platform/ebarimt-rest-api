@@ -190,6 +190,26 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "posapi.BankTransaction": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "approvalCode": {
+                    "type": "string"
+                },
+                "bankId": {
+                    "type": "string"
+                },
+                "rrn": {
+                    "type": "string"
+                },
+                "terminalId": {
+                    "type": "string"
+                }
+            }
+        },
         "posapi.BillInput": {
             "type": "object",
             "properties": {
@@ -313,7 +333,7 @@ const docTemplate = `{
                 "bankTransactions": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/posapi.bankTransactions"
+                        "$ref": "#/definitions/posapi.BankTransaction"
                     }
                 },
                 "billIdSuffix": {
@@ -337,13 +357,13 @@ const docTemplate = `{
                 "districtCode": {
                     "type": "string"
                 },
-                "dosNo": {
-                    "type": "string"
-                },
                 "invoiceId": {
                     "type": "string"
                 },
                 "nonCashAmount": {
+                    "type": "string"
+                },
+                "posNo": {
                     "type": "string"
                 },
                 "reportMonth": {
@@ -355,7 +375,7 @@ const docTemplate = `{
                 "stocks": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/posapi.Stocks"
+                        "$ref": "#/definitions/posapi.Stock"
                     }
                 },
                 "taxType": {
@@ -401,7 +421,7 @@ const docTemplate = `{
                 }
             }
         },
-        "posapi.Stocks": {
+        "posapi.Stock": {
             "type": "object",
             "properties": {
                 "barCode": {
@@ -429,26 +449,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "vat": {
-                    "type": "string"
-                }
-            }
-        },
-        "posapi.bankTransactions": {
-            "type": "object",
-            "properties": {
-                "amount": {
-                    "type": "string"
-                },
-                "approvalCode": {
-                    "type": "string"
-                },
-                "bankId": {
-                    "type": "string"
-                },
-                "rrn": {
-                    "type": "string"
-                },
-                "terminalId": {
                     "type": "string"
                 }
             }

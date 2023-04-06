@@ -1,7 +1,7 @@
 FROM golang:latest
 
 RUN apt-get update && \
-    apt-get install -y libsqlite3-dev g++ grep && \
+    apt-get install -y libsqlite3-dev && \
     rm -rf /var/lib/apt/lists/*
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH

@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/gofiber/fiber/v2 v2.43.0
 	github.com/gofiber/swagger v0.1.10
-	github.com/lambda-platform/ebarimt v0.1.0
+	github.com/lambda-platform/ebarimt v0.1.3
 	github.com/swaggo/swag v1.8.12
 )
 

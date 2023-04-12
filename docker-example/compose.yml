@@ -9,7 +9,7 @@ services:
       - "3000:3000"
     volumes:
       - ./libPosAPI.so:/home/ebarimtuser/app/libPosAPI.so #./libPosAPI.so path your so file
-      - ./ebarimt_data:/home/ebarimtuser/.vatps:rw
+#      - ./ebarimt_data:/home/ebarimtuser/.vatps:rw
     environment:
       - TZ=Asia/Ulaanbaatar
 

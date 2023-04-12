@@ -54,6 +54,9 @@ WORKDIR /home/ebarimtuser/app
 # Copy the rest of the project files into the container at /app
 COPY --chown=ebarimtuser:ebarimtuser . .
 
+RUN mkdir /home/ebarimtuser/.vatps && \
+    chown ebarimtuser:ebarimtuser /home/ebarimtuser/.vatps
+
 # Download dependencies
 RUN go mod download
 

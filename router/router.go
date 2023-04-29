@@ -15,7 +15,11 @@ func Routes(app *fiber.App) {
 
 	app.Post("/put", controller.Put)
 
+	app.Post("/put-batch", controller.PutBatch)
+
 	app.Post("/return", controller.Return)
 
 	app.Get("/send", controller.Send)
+
+	app.Get("/organization/:register", controller.OrganizationInfo)
 }

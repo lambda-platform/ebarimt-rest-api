@@ -100,6 +100,26 @@ const docTemplate = `{
                 }
             }
         },
+        "/organization/{register}": {
+            "get": {
+                "description": "Байгууллагын мэдээллийг регистрийн дугаараар авах",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ebarimt"
+                ],
+                "summary": "Байгууллагын мэдээллийг регистрийн дугаараар авах",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/helper.OrganizationInfo"
+                        }
+                    }
+                }
+            }
+        },
         "/put": {
             "post": {
                 "description": "Өгөгдсөн мэдээллийг ашиглан системд нэхэмжлэхийг нэмэх.",
@@ -134,9 +154,43 @@ const docTemplate = `{
                 }
             }
         },
+        "/put-batch": {
+            "post": {
+                "description": "Өгөгдсөн мэдээллийг ашиглан системд нэхэмжлэхийг нэмэх.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ebarimt"
+                ],
+                "summary": "Системд багц баримтын нэхэмжлэхийг оруулах",
+                "parameters": [
+                    {
+                        "description": "Bills data",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/posapi.PutInputBatch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/posapi.PutOutput"
+                        }
+                    }
+                }
+            }
+        },
         "/return": {
             "post": {
-                "description": "Return a bill with the provided data.\nӨгөгдсөн мэдээллийг ашиглан нэхэмжлэхийг буцаах.",
+                "description": "Өгөгдсөн мэдээллийг ашиглан нэхэмжлэхийг буцаах.",
                 "consumes": [
                     "application/json"
                 ],
@@ -170,14 +224,14 @@ const docTemplate = `{
         },
         "/send": {
             "get": {
-                "description": "Send data via the API.",
+                "description": "Баримтын мэдээллийг илгээх API.",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "ebarimt"
                 ],
-                "summary": "Transmit data",
+                "summary": "Баримтын мэдээллийг илгээх",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -190,6 +244,33 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "helper.OrganizationInfo": {
+            "type": "object",
+            "properties": {
+                "citypayer": {
+                    "type": "boolean"
+                },
+                "found": {
+                    "type": "boolean"
+                },
+                "freeProject": {
+                    "type": "boolean"
+                },
+                "lastReceiptDate": {},
+                "name": {
+                    "type": "string"
+                },
+                "receiptFound": {
+                    "type": "boolean"
+                },
+                "vatpayer": {
+                    "type": "boolean"
+                },
+                "vatpayerRegisteredDate": {
+                    "type": "string"
+                }
+            }
+        },
         "posapi.BankTransaction": {
             "type": "object",
             "properties": {
@@ -206,6 +287,74 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "terminalId": {
+                    "type": "string"
+                }
+            }
+        },
+        "posapi.Bill": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "bankTransactions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/posapi.BankTransaction"
+                    }
+                },
+                "billIdSuffix": {
+                    "type": "string"
+                },
+                "billType": {
+                    "type": "string"
+                },
+                "branchNo": {
+                    "type": "string"
+                },
+                "cashAmount": {
+                    "type": "string"
+                },
+                "cityTax": {
+                    "type": "string"
+                },
+                "customerNo": {
+                    "type": "string"
+                },
+                "districtCode": {
+                    "type": "string"
+                },
+                "internalId": {
+                    "type": "string"
+                },
+                "invoiceId": {
+                    "type": "string"
+                },
+                "nonCashAmount": {
+                    "type": "string"
+                },
+                "posNo": {
+                    "type": "string"
+                },
+                "registerNo": {
+                    "type": "string"
+                },
+                "reportMonth": {
+                    "type": "string"
+                },
+                "returnBillId": {
+                    "type": "string"
+                },
+                "stocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/posapi.Stock"
+                    }
+                },
+                "taxType": {
+                    "type": "string"
+                },
+                "vat": {
                     "type": "string"
                 }
             }
@@ -386,6 +535,35 @@ const docTemplate = `{
                 }
             }
         },
+        "posapi.PutInputBatch": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "billIdSuffix": {
+                    "type": "string"
+                },
+                "billType": {
+                    "type": "string"
+                },
+                "bills": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/posapi.Bill"
+                    }
+                },
+                "group": {
+                    "type": "boolean"
+                },
+                "posNo": {
+                    "type": "string"
+                },
+                "vat": {
+                    "type": "string"
+                }
+            }
+        },
         "posapi.PutOutput": {
             "type": "object",
             "properties": {
@@ -398,6 +576,9 @@ const docTemplate = `{
                 "date": {
                     "type": "string"
                 },
+                "errorCode": {
+                    "type": "integer"
+                },
                 "internalCode": {
                     "type": "string"
                 },
@@ -408,6 +589,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "macAddress": {
+                    "type": "string"
+                },
+                "message": {
                     "type": "string"
                 },
                 "qrData": {

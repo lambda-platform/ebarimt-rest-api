@@ -1,5 +1,23 @@
 basePath: /
 definitions:
+  helper.OrganizationInfo:
+    properties:
+      citypayer:
+        type: boolean
+      found:
+        type: boolean
+      freeProject:
+        type: boolean
+      lastReceiptDate: {}
+      name:
+        type: string
+      receiptFound:
+        type: boolean
+      vatpayer:
+        type: boolean
+      vatpayerRegisteredDate:
+        type: string
+    type: object
   posapi.BankTransaction:
     properties:
       amount:
@@ -11,6 +29,51 @@ definitions:
       rrn:
         type: string
       terminalId:
+        type: string
+    type: object
+  posapi.Bill:
+    properties:
+      amount:
+        type: string
+      bankTransactions:
+        items:
+          $ref: '#/definitions/posapi.BankTransaction'
+        type: array
+      billIdSuffix:
+        type: string
+      billType:
+        type: string
+      branchNo:
+        type: string
+      cashAmount:
+        type: string
+      cityTax:
+        type: string
+      customerNo:
+        type: string
+      districtCode:
+        type: string
+      internalId:
+        type: string
+      invoiceId:
+        type: string
+      nonCashAmount:
+        type: string
+      posNo:
+        type: string
+      registerNo:
+        type: string
+      reportMonth:
+        type: string
+      returnBillId:
+        type: string
+      stocks:
+        items:
+          $ref: '#/definitions/posapi.Stock'
+        type: array
+      taxType:
+        type: string
+      vat:
         type: string
     type: object
   posapi.BillInput:
@@ -127,6 +190,25 @@ definitions:
       vat:
         type: string
     type: object
+  posapi.PutInputBatch:
+    properties:
+      amount:
+        type: string
+      billIdSuffix:
+        type: string
+      billType:
+        type: string
+      bills:
+        items:
+          $ref: '#/definitions/posapi.Bill'
+        type: array
+      group:
+        type: boolean
+      posNo:
+        type: string
+      vat:
+        type: string
+    type: object
   posapi.PutOutput:
     properties:
       billId:
@@ -135,6 +217,8 @@ definitions:
         type: string
       date:
         type: string
+      errorCode:
+        type: integer
       internalCode:
         type: string
       lottery:
@@ -142,6 +226,8 @@ definitions:
       lotteryWarningMsg:
         type: string
       macAddress:
+        type: string
+      message:
         type: string
       qrData:
         type: string
@@ -235,6 +321,19 @@ paths:
       summary: API-ийн мэдээллийг авах
       tags:
       - ebarimt
+  /organization/{register}:
+    get:
+      description: Байгууллагын мэдээллийг регистрийн дугаараар авах
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helper.OrganizationInfo'
+      summary: Байгууллагын мэдээллийг регистрийн дугаараар авах
+      tags:
+      - ebarimt
   /put:
     post:
       consumes:
@@ -257,13 +356,33 @@ paths:
       summary: Системд нэхэмжлэхийг оруулах
       tags:
       - ebarimt
+  /put-batch:
+    post:
+      consumes:
+      - application/json
+      description: Өгөгдсөн мэдээллийг ашиглан системд нэхэмжлэхийг нэмэх.
+      parameters:
+      - description: Bills data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/posapi.PutInputBatch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/posapi.PutOutput'
+      summary: Системд багц баримтын нэхэмжлэхийг оруулах
+      tags:
+      - ebarimt
   /return:
     post:
       consumes:
       - application/json
-      description: |-
-        Return a bill with the provided data.
-        Өгөгдсөн мэдээллийг ашиглан нэхэмжлэхийг буцаах.
+      description: Өгөгдсөн мэдээллийг ашиглан нэхэмжлэхийг буцаах.
       parameters:
       - description: Return bill data
         in: body
@@ -283,7 +402,7 @@ paths:
       - ebarimt
   /send:
     get:
-      description: Send data via the API.
+      description: Баримтын мэдээллийг илгээх API.
       produces:
       - application/json
       responses:
@@ -291,7 +410,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/posapi.DataOutput'
-      summary: Transmit data
+      summary: Баримтын мэдээллийг илгээх
       tags:
       - ebarimt
 swagger: "2.0"

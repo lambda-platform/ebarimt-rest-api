@@ -1,5 +1,23 @@
 basePath: /
 definitions:
+  helper.OrganizationInfo:
+    properties:
+      citypayer:
+        type: boolean
+      found:
+        type: boolean
+      freeProject:
+        type: boolean
+      lastReceiptDate: {}
+      name:
+        type: string
+      receiptFound:
+        type: boolean
+      vatpayer:
+        type: boolean
+      vatpayerRegisteredDate:
+        type: string
+    type: object
   posapi.BankTransaction:
     properties:
       amount:
@@ -11,6 +29,51 @@ definitions:
       rrn:
         type: string
       terminalId:
+        type: string
+    type: object
+  posapi.Bill:
+    properties:
+      amount:
+        type: string
+      bankTransactions:
+        items:
+          $ref: '#/definitions/posapi.BankTransaction'
+        type: array
+      billIdSuffix:
+        type: string
+      billType:
+        type: string
+      branchNo:
+        type: string
+      cashAmount:
+        type: string
+      cityTax:
+        type: string
+      customerNo:
+        type: string
+      districtCode:
+        type: string
+      internalId:
+        type: string
+      invoiceId:
+        type: string
+      nonCashAmount:
+        type: string
+      posNo:
+        type: string
+      registerNo:
+        type: string
+      reportMonth:
+        type: string
+      returnBillId:
+        type: string
+      stocks:
+        items:
+          $ref: '#/definitions/posapi.Stock'
+        type: array
+      taxType:
+        type: string
+      vat:
         type: string
     type: object
   posapi.BillInput:
@@ -127,6 +190,25 @@ definitions:
       vat:
         type: string
     type: object
+  posapi.PutInputBatch:
+    properties:
+      amount:
+        type: string
+      billIdSuffix:
+        type: string
+      billType:
+        type: string
+      bills:
+        items:
+          $ref: '#/definitions/posapi.Bill'
+        type: array
+      group:
+        type: boolean
+      posNo:
+        type: string
+      vat:
+        type: string
+    type: object
   posapi.PutOutput:
     properties:
       billId:
@@ -135,6 +217,8 @@ definitions:
         type: string
       date:
         type: string
+      errorCode:
+        type: integer
       internalCode:
         type: string
       lottery:
@@ -142,6 +226,8 @@ definitions:
       lotteryWarningMsg:
         type: string
       macAddress:
+        type: string
+      message:
         type: string
       qrData:
         type: string
@@ -175,14 +261,13 @@ info:
   contact:
     email: munkaltai@gmail.com
     name: Munkh-Altai Chuluunbaatar
-  description: This is a REST API implementation for EBarimt PosAPI, built using the
-    Fiber framework in Go, showcasing the creation of a fast and efficient RESTful
-    API.
+  description: Энэ жинээ нь Go хэл дээр Fiber framework-ийг ашиглаж EBarimt PosAPI-ийн
+    REST API-г хурдан ба хэмнэлттэй бүтээсэн жишээ.
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
   termsOfService: http://swagger.io/terms/
-  title: EBarimt PosAPI REST API using Go and Fiber
+  title: EBarimt PosAPI REST API Go ба Fiber ашигласан
   version: "1.0"
 paths:
   /call:
@@ -236,6 +321,19 @@ paths:
       summary: Retrieve API information
       tags:
       - ebarimt
+  /organization/{register}:
+    get:
+      description: Get Organization info by Register
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helper.OrganizationInfo'
+      summary: Get Organization info by Register
+      tags:
+      - ebarimt
   /put:
     post:
       consumes:
@@ -256,6 +354,28 @@ paths:
           schema:
             $ref: '#/definitions/posapi.PutOutput'
       summary: Submit a bill to the system
+      tags:
+      - ebarimt
+  /put-batch:
+    post:
+      consumes:
+      - application/json
+      description: Add a bill to the system with the provided data.
+      parameters:
+      - description: Bills data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/posapi.PutInputBatch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/posapi.PutOutput'
+      summary: Submit Batch Bills to the system
       tags:
       - ebarimt
   /return:
